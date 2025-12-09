@@ -169,7 +169,7 @@ impl Assigner {
                 .expect("BUG: confirmed_sender not found in state, lock contract broken");
 
             if *locked_builder_address != builder_address {
-                panic!("BUG: confirmed_sender {:?} is assigned to another builder expected: {:?} found: {:?}, lock contract broken", confirmed_sender, builder_address, locked_builder_address);
+                panic!("BUG: confirmed_sender {confirmed_sender:?} is assigned to another builder expected: {builder_address:?} found: {locked_builder_address:?}, lock contract broken");
             }
 
             // Confirm the sender to the builder

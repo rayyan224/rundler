@@ -84,8 +84,7 @@ where
             && (!self.chain_spec.supports_eip7702(entry_point) || permissions.eip7702_disabled)
         {
             return Err(EthRpcError::InvalidParams(format!(
-                "EIP-7702 is not supported on entry point {:?} or is disabled",
-                entry_point
+                "EIP-7702 is not supported on entry point {entry_point:?} or is disabled"
             )));
         }
 
@@ -115,8 +114,7 @@ where
 
         if op.eip7702_auth_address().is_some() && !self.chain_spec.supports_eip7702(entry_point) {
             return Err(EthRpcError::InvalidParams(format!(
-                "EIP-7702 is not supported on entry point {:?}",
-                entry_point
+                "EIP-7702 is not supported on entry point {entry_point:?}"
             )));
         }
 

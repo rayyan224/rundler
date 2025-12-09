@@ -411,7 +411,7 @@ impl OpPool for OpPoolImpl {
             .map(|eu| eu.try_into())
             .collect::<Result<Vec<EntityUpdate>, _>>()
             .map_err(|e| {
-                Status::internal(format!("Failed to convert to proto entity update: {}", e))
+                Status::internal(format!("Failed to convert to proto entity update: {e}"))
             })?;
 
         let resp = match self.local_pool.update_entities(ep, entity_updates).await {

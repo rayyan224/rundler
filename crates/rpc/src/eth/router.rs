@@ -111,8 +111,7 @@ impl EntryPointRouter {
             EntryPointVersion::V0_6 => {
                 if !matches!(uo, UserOperationVariant::V0_6(_)) {
                     return Err(EthRpcError::InvalidParams(format!(
-                        "Invalid user operation for entry point: {:?}",
-                        entry_point
+                        "Invalid user operation for entry point: {entry_point:?}"
                     )));
                 }
                 Ok(&self.v0_6.as_ref().unwrap().1)
@@ -120,8 +119,7 @@ impl EntryPointRouter {
             EntryPointVersion::V0_7 => {
                 if !matches!(uo, UserOperationVariant::V0_7(_)) {
                     return Err(EthRpcError::InvalidParams(format!(
-                        "Invalid user operation for entry point: {:?}",
-                        entry_point
+                        "Invalid user operation for entry point: {entry_point:?}"
                     )));
                 }
                 Ok(&self.v0_7.as_ref().unwrap().1)
@@ -187,8 +185,7 @@ impl EntryPointRouter {
             EntryPointVersion::V0_6 => {
                 if !matches!(uo, UserOperationOptionalGas::V0_6(_)) {
                     return Err(EthRpcError::InvalidParams(format!(
-                        "Invalid user operation for entry point: {:?}",
-                        entry_point
+                        "Invalid user operation for entry point: {entry_point:?}"
                     )));
                 }
 
@@ -205,8 +202,7 @@ impl EntryPointRouter {
             EntryPointVersion::V0_7 => {
                 if !matches!(uo, UserOperationOptionalGas::V0_7(_)) {
                     return Err(EthRpcError::InvalidParams(format!(
-                        "Invalid user operation for entry point: {:?}",
-                        entry_point
+                        "Invalid user operation for entry point: {entry_point:?}"
                     )));
                 }
 
@@ -248,8 +244,7 @@ impl EntryPointRouter {
         }
 
         Err(EthRpcError::InvalidParams(format!(
-            "No entry point found for address: {:?}",
-            entry_point
+            "No entry point found for address: {entry_point:?}"
         )))
     }
 

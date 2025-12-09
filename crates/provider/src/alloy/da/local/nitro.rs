@@ -131,7 +131,7 @@ where
             .block_data_cache
             .try_get_with(block, async { self.get_block_data(block).await })
             .await
-            .context(format!("failed to get block data {:?}", block))?;
+            .context(format!("failed to get block data {block:?}"))?;
 
         Ok(data)
     }
