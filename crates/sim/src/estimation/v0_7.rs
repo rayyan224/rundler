@@ -263,7 +263,7 @@ where
         fee_estimator: F,
     ) -> Self {
         if let Some(err) = settings.validate() {
-            panic!("Invalid gas estimator settings: {}", err);
+            panic!("Invalid gas estimator settings: {err}");
         }
 
         let verification_gas_estimator = VerificationGasEstimatorImpl::new(

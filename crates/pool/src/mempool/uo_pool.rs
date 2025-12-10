@@ -590,8 +590,7 @@ where
         if let Some(aggregator) = op.aggregator() {
             let Some(agg) = self.config.chain_spec.get_signature_aggregator(&aggregator) else {
                 return Err(MempoolError::AggregatorError(format!(
-                    "Unsupported aggregator {:?}",
-                    aggregator
+                    "Unsupported aggregator {aggregator:?}"
                 )));
             };
 
@@ -599,8 +598,7 @@ where
                 Ok(sig) => sig,
                 Err(e) => {
                     return Err(MempoolError::AggregatorError(format!(
-                        "Error validating signature: {:?}",
-                        e
+                        "Error validating signature: {e:?}"
                     )));
                 }
             };

@@ -17,7 +17,7 @@ use alloy_primitives::Address;
 
 /// Format the ethers address type to string without ellipsis
 pub fn format_address(address: Address) -> String {
-    format!("{:#x}", address).to_string()
+    format!("{address:#x}").to_string()
 }
 
 /// Calculate the size of a transaction in bytes including transaction overhead
@@ -84,28 +84,19 @@ mod tests {
         let actual_size = encoded.len();
 
         // The calculated size should be close to the actual size (within reasonable overhead)
-        let diff = if calculated_size > actual_size {
-            calculated_size - actual_size
-        } else {
-            actual_size - calculated_size
-        };
+        let diff = calculated_size.abs_diff(actual_size);
 
         // The estimate is intentionally conservative (overestimates) for safety
         // Allow up to 300 bytes difference for encoding overhead estimation
         assert!(
             diff <= 300,
-            "Size difference too large: calculated={}, actual={}, diff={}",
-            calculated_size,
-            actual_size,
-            diff
+            "Size difference too large: calculated={calculated_size}, actual={actual_size}, diff={diff}",
         );
 
         // Verify that our calculation is never less than the actual size
         assert!(
             calculated_size >= actual_size,
-            "Calculated size must not underestimate: calculated={}, actual={}",
-            calculated_size,
-            actual_size
+            "Calculated size must not underestimate: calculated={calculated_size}, actual={actual_size}",
         );
     }
 
@@ -153,28 +144,19 @@ mod tests {
         signed_tx.rlp_encode(&mut encoded);
         let actual_size = encoded.len();
 
-        let diff = if calculated_size > actual_size {
-            calculated_size - actual_size
-        } else {
-            actual_size - calculated_size
-        };
+        let diff = calculated_size.abs_diff(actual_size);
 
         // The estimate is intentionally conservative (overestimates) for safety
         // Allow up to 500 bytes difference for encoding overhead estimation
         assert!(
             diff <= 500,
-            "Size difference too large: calculated={}, actual={}, diff={}",
-            calculated_size,
-            actual_size,
-            diff
+            "Size difference too large: calculated={calculated_size}, actual={actual_size}, diff={diff}",
         );
 
         // Verify that our calculation is never less than the actual size
         assert!(
             calculated_size >= actual_size,
-            "Calculated size must not underestimate: calculated={}, actual={}",
-            calculated_size,
-            actual_size
+            "Calculated size must not underestimate: calculated={calculated_size}, actual={actual_size}",
         );
     }
 

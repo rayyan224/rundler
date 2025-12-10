@@ -387,7 +387,7 @@ impl EntryPointBuilderConfigs {
                 if let Some(proxy) = builder.proxy {
                     let proxy_type = if let Some(proxy_type) = &builder.proxy_type {
                         SubmissionProxyType::from_str(proxy_type)
-                            .unwrap_or_else(|_| panic!("proxyType not supported: {}", proxy_type))
+                            .unwrap_or_else(|_| panic!("proxyType not supported: {proxy_type}"))
                     } else {
                         SubmissionProxyType::PassThrough
                     };

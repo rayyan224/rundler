@@ -201,10 +201,10 @@ pub struct ValidationRevertData {
 impl Display for ValidationRevertData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if let Some(reason) = &self.reason {
-            write!(f, "[reason]: {}", reason)?;
+            write!(f, "[reason]: {reason}")?;
         }
         if let Some(inner_reason) = &self.inner_reason {
-            write!(f, " | [inner reason]: {}", inner_reason)?;
+            write!(f, " | [inner reason]: {inner_reason}")?;
         }
         Ok(())
     }
@@ -309,7 +309,7 @@ impl From<MempoolError> for EthRpcError {
             MempoolError::SimulationViolation(violation) => violation.into(),
             MempoolError::AggregatorError(a) => Self::AggregatorError(a),
             MempoolError::UnknownEntryPoint(a) => {
-                Self::EntryPointValidationRejected(format!("unknown entry point: {}", a))
+                Self::EntryPointValidationRejected(format!("unknown entry point: {a}"))
             }
             MempoolError::OperationDropTooSoon(_, _, _)
             | MempoolError::VerificationGasLimitEfficiencyTooLow(_, _)
@@ -383,7 +383,7 @@ impl From<SimulationViolation> for EthRpcError {
 
 impl From<EthRpcError> for ErrorObjectOwned {
     fn from(error: EthRpcError) -> Self {
-        let msg = format!("{}", error);
+        let msg = format!("{error}");
 
         match error {
             EthRpcError::Internal(_) => rpc_err(INTERNAL_ERROR_CODE, msg),
@@ -460,7 +460,7 @@ impl From<ProviderErrorWithContext> for EthRpcError {
                     format!("rpc error with code: {} ", error_payload.code)
                 }
                 RpcError::Transport(e) => {
-                    format!("transport error: {}", e)
+                    format!("transport error: {e}")
                 }
                 _ => e.error.to_string(),
             },
@@ -470,14 +470,14 @@ impl From<ProviderErrorWithContext> for EthRpcError {
                         format!("rpc error with code: {} ", error_payload.code)
                     }
                     RpcError::Transport(err) => {
-                        format!("transport error: {}", err)
+                        format!("transport error: {err}")
                     }
                     _ => error.to_string(),
                 },
                 _ => error.to_string(),
             },
             ProviderError::Other(error) => {
-                format!("other error: {}", error)
+                format!("other error: {error}")
             }
         };
         if let Some(context_msg) = e.context {

@@ -20,17 +20,13 @@ use async_trait::async_trait;
 use rundler_utils::retry::{self, RetryOpts};
 
 /// Format a server address from a host, port, and secure flag.
-pub fn format_server_addr(host: &String, port: u16, secure: bool) -> String {
-    if secure {
-        format!("https://{}:{}", host, port)
-    } else {
-        format!("http://{}:{}", host, port)
-    }
+pub fn format_server_addr(host: &String, port: u16, _secure: bool) -> String {
+    format!("https://{host}:{port}")
 }
 
 /// Format a socket address from a host and port.
 pub fn format_socket_addr(host: &String, port: u16) -> String {
-    format!("{}:{}", host, port)
+    format!("{host}:{port}")
 }
 
 /// Connect to a server with retries until it is available, or the shutdown signal is received.

@@ -381,7 +381,7 @@ where
                     inner,
                 }) => HandleOpsOut::FailedOp(
                     opIndex.try_into().unwrap_or(usize::MAX),
-                    format!("{}:{}", reason, inner),
+                    format!("{reason}:{inner}"),
                 ),
                 IEntryPointErrors::SignatureValidationFailed(failure) => {
                     HandleOpsOut::SignatureValidationFailed(failure.aggregator)
