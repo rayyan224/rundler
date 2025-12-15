@@ -37,17 +37,27 @@ use tracing::info;
 use super::{entity_tracker::EntityCounter, size::SizeTracker, MempoolResult, PoolConfig};
 use crate::{chain::MinedOp, emit::OpRemovalReason, PoolEvent};
 
+/// Configuration for the inner pool
 #[derive(Debug, Clone)]
-pub(crate) struct PoolInnerConfig {
-    chain_spec: ChainSpec,
-    entry_point: Address,
-    max_size_of_pool_bytes: usize,
-    min_replacement_fee_increase_percentage: u32,
-    throttled_entity_mempool_count: u64,
-    throttled_entity_live_blocks: u64,
-    da_gas_tracking_enabled: bool,
-    max_time_in_pool: Option<Duration>,
-    verification_gas_limit_efficiency_reject_threshold: f64,
+pub struct PoolInnerConfig {
+    /// Chain specification
+    pub chain_spec: ChainSpec,
+    /// Entry point address
+    pub entry_point: Address,
+    /// Maximum size of the pool in bytes
+    pub max_size_of_pool_bytes: usize,
+    /// Minimum fee increase percentage for replacement
+    pub min_replacement_fee_increase_percentage: u32,
+    /// Maximum number of operations with a throttled entity
+    pub throttled_entity_mempool_count: u64,
+    /// Maximum number of blocks a throttled entity can stay in the pool
+    pub throttled_entity_live_blocks: u64,
+    /// Whether to track DA gas
+    pub da_gas_tracking_enabled: bool,
+    /// Maximum time an operation can stay in the pool
+    pub max_time_in_pool: Option<Duration>,
+    /// Verification gas limit efficiency reject threshold
+    pub verification_gas_limit_efficiency_reject_threshold: f64,
 }
 
 impl From<PoolConfig> for PoolInnerConfig {
@@ -69,7 +79,7 @@ impl From<PoolConfig> for PoolInnerConfig {
 
 /// Pool of user operations
 #[derive(Debug)]
-pub(crate) struct PoolInner<D> {
+pub struct PoolInner<D> {
     /// Pool settings
     config: PoolInnerConfig,
     /// DA Gas Oracle
@@ -113,7 +123,8 @@ impl<D> PoolInner<D>
 where
     D: DAGasOracleSync,
 {
-    pub(crate) fn new(
+    /// Create a new pool
+    pub fn new(
         config: PoolInnerConfig,
         da_gas_oracle: Option<D>,
         event_sender: broadcast::Sender<WithEntryPoint<PoolEvent>>,

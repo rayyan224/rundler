@@ -13,6 +13,7 @@
 
 mod entity_tracker;
 mod pool;
+pub use pool::{PoolInner, PoolInnerConfig};
 
 mod reputation;
 pub(crate) use reputation::{AddressReputation, ReputationParams};
