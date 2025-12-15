@@ -25,7 +25,7 @@ mod emit;
 pub use emit::OpPoolEvent as PoolEvent;
 
 mod mempool;
-pub use mempool::PoolConfig;
+pub use mempool::{PoolConfig, PoolInner, PoolInnerConfig};
 
 mod server;
 pub use server::{LocalPoolBuilder, LocalPoolHandle, RemotePoolClient};
