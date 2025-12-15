@@ -187,7 +187,8 @@ where
         }
     }
 
-    pub(crate) fn add_operation(
+    /// Add an operation to the pool
+    pub fn add_operation(
         &mut self,
         op: PoolOperation,
         base_fee: u128,
@@ -228,11 +229,12 @@ where
         Ok(hash)
     }
 
-    pub(crate) fn best_operations(&self) -> impl Iterator<Item = Arc<PoolOperation>> + '_ {
+    /// Get the best operations from the pool
+    pub fn best_operations(&self) -> impl Iterator<Item = Arc<PoolOperation>> + '_ {
         self.best.iter().map(|o| o.po.clone())
     }
-
-    pub(crate) fn all_operations(&self) -> impl Iterator<Item = Arc<PoolOperation>> + '_ {
+    /// Get all operations from the pool
+    pub fn all_operations(&self) -> impl Iterator<Item = Arc<PoolOperation>> + '_ {
         self.by_hash.values().map(|o| o.po.clone())
     }
 
@@ -290,7 +292,7 @@ where
     ///
     /// NOTE: This method is O(n) where n is the number of operations in the pool.
     /// It should be called sparingly (e.g. when a block is mined).
-    pub(crate) fn do_maintenance(
+    pub fn do_maintenance(
         &mut self,
         block_number: u64,
         block_timestamp: Timestamp,
@@ -447,7 +449,8 @@ where
         0
     }
 
-    pub(crate) fn get_operation_by_hash(&self, hash: B256) -> Option<Arc<PoolOperation>> {
+    /// Get an operation from the pool by hash
+    pub fn get_operation_by_hash(&self, hash: B256) -> Option<Arc<PoolOperation>> {
         self.by_hash.get(&hash).map(|o| o.po.clone())
     }
 
@@ -455,7 +458,8 @@ where
         self.by_id.get(id).map(|o| o.po.clone())
     }
 
-    pub(crate) fn remove_operation_by_hash(&mut self, hash: B256) -> Option<Arc<PoolOperation>> {
+    /// Remove an operation from the pool by hash
+    pub fn remove_operation_by_hash(&mut self, hash: B256) -> Option<Arc<PoolOperation>> {
         self.remove_operation_internal(hash, None)
     }
 
@@ -528,7 +532,8 @@ where
         }
     }
 
-    pub(crate) fn mine_operation(
+    /// Mine an operation from the pool and return the operation
+    pub fn mine_operation(
         &mut self,
         mined_op: &MinedOp,
         block_number: u64,

@@ -118,7 +118,7 @@ pub(crate) struct ChainUpdate {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) struct MinedOp {
+pub struct MinedOp {
     pub hash: B256,
     pub entry_point: Address,
     pub sender: Address,
